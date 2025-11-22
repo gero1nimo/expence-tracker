@@ -15,7 +15,6 @@ class ExpenseManager:
             with open(filename, "r") as file:
                 reader = csv.DictReader(file)
                 for row in reader:
-                    print(row)
                     expense= self.Expense(self,
                                           description=row["Description"],
                         amount=int(row["Amount"])
@@ -124,14 +123,36 @@ class ExpenseManager:
                 "Date": self.date,
                 "Amount": self.amount
             }
+    
+    
+parser = argparse.ArgumentParser("expence-tracker",description="Expense Tracker CLI")
+parser.add_argument("--add", nargs=2, metavar=("DESCRIPTION", "AMOUNT"), help="Add a new expense")
+parser.add_argument("--list", action="store_true", help="List all expenses")
+parser.add_argument("--update", nargs=3, metavar=("ID", "DESCRIPTION", "AMOUNT"), help="Update an expense")
+parser.add_argument("--delete", metavar="ID", help="Delete an expense")
+parser.add_argument("--summary", action="store_true", help="Show total expenses")
+parser.add_argument("--summary-by-month", metavar="MONTH", type=int, help="Show total expenses for a specific month")
+args = parser.parse_args()
+
 
 if __name__ == "__main__":
     manager = ExpenseManager()
-    print(manager.add("Groceries", 150))
-    print(manager.add("Transport", 50))
-    print(manager.list())
-    print(manager.summary())
-    print(manager.summary_by_month(6))
 
-    print(manager.update(1, amount=200))
-    print(manager.list())
+    if args.add:
+        description, amount = args.add
+        print(manager.add(description, int(amount)))
+    elif args.list:
+        print(manager.list())
+    elif args.update:
+        id, description, amount = args.update
+        print(manager.update(int(id), description, int(amount)))
+    elif args.delete:
+        id = args.delete
+        print(manager.delete(int(id)))
+    elif args.summary:
+        print(manager.summary())
+    elif args.summary_by_month:
+        month = args.summary_by_month
+        print(manager.summary_by_month(month))
+    else: 
+        parser.print_help()
