@@ -1,6 +1,4 @@
 ﻿### Expense Manager
-Projects functionality is completed
-
 #### Overview
 A lightweight expense tracker for recording, categorizing, and reporting personal expenses. Designed for local use with a simple SQLite backend and minimal dependencies. The application will automatically create an expenses.csv file if there is not one in directory. Every time the application runs, the program will automatically get the previous expenses from csv file and will automatically save every expense creation or update or delete. 
 
@@ -50,4 +48,5 @@ python main.py --summary
 python main.py --export expenses.csv
 python main.py --import expenses.csv
 ```
+
 
