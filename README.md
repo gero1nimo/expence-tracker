@@ -7,8 +7,7 @@ https://roadmap.sh/projects/expense-tracker
 
 #### Key Features
 - Add, edit, and delete expenses
-- Categorization and tagging
-- Monthly and category-wise summaries
+- Monthly and fully summaries
 - CSV import/export
 - Simple CLI and minimal GUI (if included)
 
@@ -48,6 +47,7 @@ python main.py --summary
 python main.py --export expenses.csv
 python main.py --import expenses.csv
 ```
+
 
 
 
