@@ -1,2 +1,9 @@
-1,Yemek,100,2025-11-22
-2,Sigara,50,2025-11-22
+ID,Description,Amount,Date
+1,Groceries,200,2025-11-22
+2,Transport,50,2025-11-22
+3,Groceries,150,2025-11-22
+4,Transport,50,2025-11-22
+5,Groceries,150,2025-11-22
+6,Transport,50,2025-11-22
+7,Groceries,150,2025-11-22
+8,Transport,50,2025-11-22

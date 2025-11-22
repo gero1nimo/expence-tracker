@@ -1,6 +1,8 @@
 from datetime import date
 import pandas as pd
 import csv
+import argparse
+
 
 class ExpenseManager:
 
@@ -13,27 +15,23 @@ class ExpenseManager:
             with open(filename, "r") as file:
                 reader = csv.DictReader(file)
                 for row in reader:
+                    print(row)
                     expense= self.Expense(self,
                                           description=row["Description"],
                         amount=int(row["Amount"])
                     )
+                    expense.id = int(row["ID"])
+                    expense.date = date.fromisoformat(row["Date"])
+                    self.expenses.append(expense)
         except FileNotFoundError:
             "File not found, starting with an empty expense list."
             return
 
-        for item in data:
-            expense = self.Expense(
-                self,
-                description=item["Description"],
-                amount= item["Amount"]
-            )
-            expense.date = item["Date"]
-            expense.id = item["ID"]
-            self.expenses.append(expense)
 
     def save(self, filename="expenses.csv"):
         try:
             with open(filename, "w+") as file:
+                file.write("ID,Description,Amount,Date\n")
                 for expense in self.expenses:
                     file.write(f"{expense.id},{expense.description},{expense.amount},{expense.date}\n")
 
@@ -46,6 +44,7 @@ class ExpenseManager:
     def add(self, description, amount):
         new_expense = self.Expense(self, description, amount)
         self.expenses.append(new_expense)
+        self.save()
         return f"Expense with ID {new_expense.id} added successfully"
 
     def list(self):
@@ -133,3 +132,6 @@ if __name__ == "__main__":
     print(manager.list())
     print(manager.summary())
     print(manager.summary_by_month(6))
+
+    print(manager.update(1, amount=200))
+    print(manager.list())
